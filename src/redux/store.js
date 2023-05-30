@@ -1,29 +1,22 @@
-import { createStore } from "redux";
-import { reducer } from "./reducer";
+import { configureStore } from "@reduxjs/toolkit";
 
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case 'addContact':
-//       return {
-//         ...state,
-//         contacts: [...state.contacts, { id: action.payload.id, name: action.payload.name, number: action.payload.number }]
-//       }
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-//     case 'delContact':
-//       return {
-//         ...state,
-//         contacts: action.payload
-//       }
+import { reducer as rootReducer } from "./reducer";
 
-// 	  case 'changeFilterValue':
-//       return {
-//         ...state,
-//         filterValue: action.payload
-//       }
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['filterValue']
+}
+ 
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-//     default:
-//       return state
-//   }
-// }
-
-export const store = createStore(reducer);
+export const store = configureStore(
+	{
+	reducer: persistedReducer
+	}
+);
+ 
+export   const persistor = persistStore(store)

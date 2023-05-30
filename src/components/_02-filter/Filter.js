@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { changeFilterValue } from 'redux/filter/actions';
+import { changeFilterValue } from 'redux/filter/filterSlice';
 
 import debounce from 'lodash.debounce';
 
