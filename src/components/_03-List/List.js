@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import css from './list.module.scss';
-
 import { useSelector, useDispatch } from 'react-redux';
+import { delContact } from 'redux/contact/actions';
+
+import css from './list.module.scss';
 
 const List = () => {
 
-const { contacts, filterValue } = useSelector((state) => state)
-console.log(contacts);
+const { contacts } = useSelector((state) => state.allContacts)
+const { value } = useSelector((state) => state.filterValue)
+
+// console.log(value);
 
 const dispatch = useDispatch();
 
 const deleteItem = id => {
     const newData = contacts.filter(item => item.id !== id);
 
-	dispatch({
-		  type: 'delContact',
-		  payload: newData
-		});
+	dispatch(delContact(newData));
   };
 
   return (
     <ul className={css['list']}>
       {contacts
         .filter(item => {
-          return item.name.toLowerCase().includes(filterValue.toLowerCase());
+          return item.name.toLowerCase().includes(value.toLowerCase());
         })
         .map(item => {
           return (

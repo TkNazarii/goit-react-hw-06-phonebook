@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
-import css from './form.module.scss';
-
 import { useDispatch } from 'react-redux';
+
+import { addContact } from 'redux/contact/actions';
+
+import { nanoid } from 'nanoid';
+
+import css from './form.module.scss';
 
 const Form = () => {
   const [name, setName] = useState('');
@@ -28,10 +31,7 @@ const Form = () => {
       number
     };
 
-    dispatch({
-      type: 'addContact',
-      payload: newContact
-    });
+    dispatch(addContact(newContact));
 
     setName('');
     setNumber('');

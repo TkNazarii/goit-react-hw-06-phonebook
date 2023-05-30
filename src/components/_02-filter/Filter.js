@@ -1,7 +1,11 @@
 import React from 'react';
-import debounce from 'lodash.debounce';
-import css from './filter.module.scss'
 import { useDispatch } from 'react-redux';
+
+import { changeFilterValue } from 'redux/filter/actions';
+
+import debounce from 'lodash.debounce';
+
+import css from './filter.module.scss'
 
 
 const Filter = () => {
@@ -9,10 +13,8 @@ const Filter = () => {
 	const dispatch = useDispatch()
 
   const handleValue = evt => {
-	dispatch({
-				type : 'changeFilterValue',
-				payload : evt.target.value,
-			});
+	const inputValue = evt.target.value
+	dispatch(changeFilterValue(inputValue));
   };
 
     return (
